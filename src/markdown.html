@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>STATS PSM Extension Command</title>
+
+<link rel="stylesheet" type="text/css" href="extsyntax.css" />
+
+
+</head>
+
+<body>
+<h1>STATS PSM Extension Command</h1>
+
+<p>This procedure matches case
+  records with similar control records contained in a single
+  dataset.</p>
+<div class="syntax">
+<p>STATS PSM</br>
+ GROUP = group variable<sup>&#42;</sup><br/>
+ BY = variable list for logistic regression<sup>&#42;</sup></br>
+ PROPENSITY = name for propensity variable<sup>&#42;</sup></br>
+ FUZZ = match tolerance<sup>&#42;</sup> </br>
+ SUPPLIERID = case ID variable<sup>&#42;</sup></br>
+ NEWDEMANDERIDVAR = match id variable name<sup>&#42;</sup></br>
+ OUTPUTDS = dataset name for matched cases and controls<sup>&#42;</sup></br>
+ USEDCONTROLSDS = dataset name for controls used in matching</br>
+ <p>/OPTIONS<br/>
+ DRAWPOOLSIZE = name for variable holding number of eligible cases</br>
+ SAMPLEWITHREPLACEMENT = NO<sup>&#42;&#42;</sup> or YES</br>
+ EXACTPRIORITY = NO<sup>&#42;&#42;</sup> or YES</br>
+ MINIMIZEMEMORY = NO<sup>&#42;&#42;</sup> or YES</br>
+ SHUFFLE = NO<sup>&#42;&#42;</sup> or YES</br>
+ SEED = random number seed</br>
+</p>
+
+<p>/HELP</br>
+<p>STATS PSM /HELP displays this information and does nothing else.</p>
+<p><sup>&#42;</sup> Required<br/>
+<sup>&#42;&#42;</sup> Default</p>
+</div>
+
+
+<pre class="example"><code>STATS PSM 
+GROUP = group BY = var1 var2 var3 PROPENSITY=prop
+  FUZZ=0.05 NEWDEMANDERIDVAR=matchid SUPPLIERID=id
+  OUTPUTDS=outputds
+/OPTIONS DRAWPOOLSIZE=eligible
+</code></pre>
+
+<h2>Details</h2>
+<p><strong>GROUP</strong> specifies the
+  variable that defines whether a record is in the case or control
+  group. A variable value of 1 indicates a case, and a value of
+  0 indicates a control. </p> 
+  
+  <p class="bullet">• Any other value causes the case to be
+  ignored.</p>
+
+<p><strong>BY</strong> specifies the variables
+  to be used in the logistic regression to model case/control
+  membership.  Any categorical predictors are automatically
+  treated as factors, so there is no need to create sets of
+  dummy variables for them.</p>
+
+
+<p><strong>PROPENSITY </strong>
+Specify a name for the variable to hold the score (propensity) from
+  the logistic regression. This variable will be used for
+  matching.</p>
+
+  <p class="bullet">• The variable name must not already be in
+  use.</p>
+
+
+<strong>FUZZ</strong> specifie the
+  tolerance for the score in matching cases and controls. A control
+  is eligible to match a case if the absolute value of the
+  difference in the propensity scores is less than or equal to this
+  value. A value of 0 means exact matches only while a value of 1
+  means any control would match any case, since these are probabilities. 
+  Smaller values produce
+  closer matches but may increase the number of unmatched
+  cases.</p>
+  
+  
+<strong>SUPPLIERID</strong> specifies a case
+  identifier variable. The Id value for the matched control
+  will be stored with each case record.  The id values should, of course,
+ be unique.</p>
+ 
+<strong>NEWDEMANDERIDVAR</strong> specifies
+  a name for the variable that will hold the id of the selected
+  control record. If a match cannot be produced, the variable value
+  will be system missing.</p>
+  <p class="bullet">• The variable name must not already be in
+  use.</p>
+  
+<p><strong>OUTPUTDS</strong> specufies a name for the dataset to be created. The dataset will hold all the
+  cases and the controls that were matched with them.</p>
+
+  <p class="bullet">• The dataset name must not already be in
+  use.</p>
+
+  <p class="bullet">• The output is a dataset, not a permanent
+  file. You must save the dataset to create an actual file.</p>
+  
+<p><strong>USEDCONTROLSDS</strong> optionally specifies a name for
+a dataset to be created that 
+will hold all the
+  control cases that were actually matched with the cases. </p>
+
+  <p class="bullet">• The dataset name must not already be in
+  use.</p>
+  
+    <p class="bullet">• The output is a dataset, not a permanent
+  file.</p>
+  
+<h2>Options</h2>
+
+<p><strong>DRAWPOOLSIZE</strong> optionally specifies a variable name to record the size
+  of the control pool, i.e., the number of eligible cases, for each
+  case record. This is the number of controls that meet the
+  matching criteria after matches for previous case records have
+  been removed, if sampling without replacement.</p>
+
+  <p class="bullet">• The variable name must not already be in
+  use</p>
+  
+<p><strong>SAMPLEWITHREPLACEMENT</strong> specifies whether control cases are
+  drawn with or without replacement.</p> 
+
+<p><strong>EXACTPRIORITY</strong>   specifies whether the matching algorithm tries first for
+  an exact match before trying for a fuzzy match.</p>
+  
+<p><strong>MINIMIZEMEMORY</strong>  specifies whether to maximize performance in selecting matches -
+  maximum speed and minimum memory usage. For large datasets this
+  value should be YES. When it is used, there is a slightly
+  greater chance that a case will not find be matched with a
+  control.</p>
+  
+  <p class="bullet">• You cannot specify both EXACTPRIORITY and
+  MINIMIZEMEMORY.</p>
+  
+<p><strong>SHUFFLE</strong> specifies whether to randomize case order when drawing
+  matches Specify YES to draw matches for the case records in
+  random order. Otherwise, the case records are processed in the
+  order in which they occur in the file. This could result in fewer
+  controls to select from later in the file. If the case records
+  have a systematic order, processing in file order could introduce
+  some bias.</p>
+
+<p><strong>SEED</strong> Specify a starting seed if you want
+  to be able to reproduce the matches exactly on a future run with
+  the same data. This seed is not related
+  to the general SPSS Statistics random number seed.</p>
+
+
+
+<p>&copy; Copyright IBM Corp. 1989, 2022</p>
+
+</body>
+
+</html>
+

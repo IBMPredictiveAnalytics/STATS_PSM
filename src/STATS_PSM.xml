@@ -1,0 +1,21 @@
+<Command xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extension-1.0.xsd" Name="STATS PSM" Language="Python" LanguageVersion="3">
+	<Subcommand Name="" Occurrence="Optional">
+		<Parameter Name="GROUP" ParameterType="VariableName"/>
+		<Parameter Name="BY" ParameterType="VariableNameList"/>
+		<Parameter Name="PROPENSITY" ParameterType="VariableName"/>
+		<Parameter Name="FUZZ" ParameterType="Number"/>
+		<Parameter Name="SUPPLIERID" ParameterType="VariableName"/>
+		<Parameter Name="NEWDEMANDERIDVAR" ParameterType="VariableName"/>
+		<Parameter Name="OUTPUTDS" ParameterType="VariableName"/>
+		<Parameter Name="USEDCONTROLSDS" ParameterType="VariableName"/>
+	</Subcommand>
+	<Subcommand Name="OPTIONS">
+		<Parameter Name="DRAWPOOLSIZE" ParameterType="VariableName"/>
+		<Parameter Name="SAMPLEWITHREPLACEMENT" ParameterType="Keyword"/>
+		<Parameter Name="EXACTPRIORITY" ParameterType="Keyword"/>
+		<Parameter Name="MINIMIZEMEMORY" ParameterType="Keyword"/>
+		<Parameter Name="SHUFFLE" ParameterType="Keyword"/>
+		<Parameter Name="SEED" ParameterType="Number"/>
+	</Subcommand>
+	<Subcommand Name="HELP" Occurrence="Optional"/>
+</Command>
