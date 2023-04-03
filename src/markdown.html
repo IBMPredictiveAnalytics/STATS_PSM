@@ -31,8 +31,6 @@
  <p>/OPTIONS<br/>
  DRAWPOOLSIZE = name for variable holding number of eligible cases</br>
  SAMPLEWITHREPLACEMENT = NO<sup>&#42;&#42;</sup> or YES</br>
- EXACTPRIORITY = NO<sup>&#42;&#42;</sup> or YES</br>
- MINIMIZEMEMORY = NO<sup>&#42;&#42;</sup> or YES</br>
  SHUFFLE = NO<sup>&#42;&#42;</sup> or YES</br>
  SEED = random number seed</br>
 </p>
@@ -132,18 +130,6 @@ will hold all the
   
 <p><strong>SAMPLEWITHREPLACEMENT</strong> specifies whether control cases are
   drawn with or without replacement.</p> 
-
-<p><strong>EXACTPRIORITY</strong>   specifies whether the matching algorithm tries first for
-  an exact match before trying for a fuzzy match.</p>
-  
-<p><strong>MINIMIZEMEMORY</strong>  specifies whether to maximize performance in selecting matches -
-  maximum speed and minimum memory usage. For large datasets this
-  value should be YES. When it is used, there is a slightly
-  greater chance that a case will not find be matched with a
-  control.</p>
-  
-  <p class="bullet">• You cannot specify both EXACTPRIORITY and
-  MINIMIZEMEMORY.</p>
   
 <p><strong>SHUFFLE</strong> specifies whether to randomize case order when drawing
   matches Specify YES to draw matches for the case records in
@@ -158,9 +144,7 @@ will hold all the
   the same data. This seed is not related
   to the general SPSS Statistics random number seed.</p>
 
-
-
-<p>&copy; Copyright IBM Corp. 1989, 2022</p>
+<p>&copy; Copyright IBM Corp. 1989, 2023</p>
 
 </body>
 

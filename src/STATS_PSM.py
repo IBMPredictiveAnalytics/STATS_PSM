@@ -3,10 +3,11 @@
 
 
 __author__ = "JKP"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 # history
 # 16-jul-2022 original version
+# 26-mar-2023 Add FUZZY version check message
 
 import spss, spssaux, random, sys
 from extension import Template, Syntax, processcmd
@@ -65,6 +66,15 @@ def psm(group, by, propensity, fuzz, id, matchidvar, outputds, usedcontrolsds=No
     drawpool=None, samplewithreplacement=False, exactpriority=False,
     minimizememory=False, shuffle=False, seed=None):
     """PSM command implementation"""
+    
+    try:
+        import FUZZY
+        v = FUZZY.__version__
+        if v < "2.0.0":
+            print("""The installed version of FUZZY is out of date.
+For better matches, update it via Extensions > Extension Hub""")
+    except:
+        raise ValueError(_("""  If FUZZY is not installed, add it via Extensions > Extension Hub."""))
 
     ds = spss.ActiveDataset()
     if ds == "*":
@@ -108,7 +118,7 @@ oms select tables /if subtypes=['Variables in the Equation'] instances=[LAST]
     try:
         spss.Submit(fuzzycmd)
     except:
-        raise ValueError(_("""Matching command failed.  If FUZZY is not installed, add it via Extensions > Extension Hub."""))
+        raise ValueError(_("""Matching command failed."""))
     
     # cleanup
     
